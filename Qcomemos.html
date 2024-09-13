@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q' Comemos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Pantalla de Inicio de Sesión -->
+    <div class="login-screen" id="login-screen">
+        <div class="background-overlay">
+            <img src="img/pexels-chanwalrus-958545.jpg" alt="Background" class="background-image">
+        </div>
+        <div class="content">
+            <img src="img/logosinnombre.png" alt="Logo" class="logo">
+            <div class="login-title">Q’ Comemos</div>
+            <div class="login-form">
+                <div class="input-field">
+                    <label class="label">Email</label>
+                    <input type="email" class="input" placeholder="Ingresa tu email">
+                </div>
+                <div class="input-field">
+                    <label class="label">Contraseña</label>
+                    <input type="password" class="input" placeholder="Ingresa tu contraseña">
+                </div>
+            </div>
+            <button class="login-button sign-in" id="sign-in-btn">Iniciar Sesión</button>
+            <button class="login-button create-account" id="create-account-btn">Crear cuenta</button>
+            <div class="no-account">¿No tienes cuenta?</div>
+        </div>
+    </div>
+
+    <!-- Pantalla de Registro (Oculta por defecto) -->
+    <div class="register-screen" id="register-screen" style="display:none;">
+        <div class="background-overlay">
+            <img src="img/pexels-chanwalrus-958545.jpg" alt="Background" class="background-image">
+        </div>
+        <div class="register-content">
+            <h2>Formulario de Registro</h2>
+            <div class="input-field">
+                <label class="label">Nombre Completo</label>
+                <input type="text" class="input" placeholder="Ingresa tu nombre completo">
+            </div>
+            <div class="input-field">
+                <label class="label">Email</label>
+                <input type="email" class="input" placeholder="Ingresa tu email">
+            </div>
+            <div class="input-field">
+                <label class="label">Contraseña</label>
+                <input type="password" class="input" placeholder="Ingresa tu contraseña">
+            </div>
+            <button class="register-button" id="register-submit-btn">Registrar</button>
+            <button class="register-button" id="back-to-login-btn">Volver al Inicio de Sesión</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de Inicio (Oculta por defecto) -->
+    <div class="home-screen" id="home-screen" style="display:none;">
+        <div class="background-overlay">
+            <img src="img/pexels-chanwalrus-958545.jpg" alt="Background" class="background-image">
+        </div>
+        <div class="home-content">
+            <img src="img/logosinnombre.png" alt="Logo" class="home-logo">
+            <h1 class="home-title">¡Tu próximo lugar favorito!</h1>
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="carousel-images">
+                        <img src="img/juanabar.jpg" alt="Imagen 1" class="carousel-image">
+                        <img src="img/la-esquina-due.jpg" alt="Imagen 2" class="carousel-image">
+                        <img src="img/lafarola.jpg" alt="Imagen 3" class="carousel-image">
+                        <img src="img/elbodegon.jfif" alt="Imagen 4" class="carousel-image">
+                        <img src="img/eljardin.jfif" alt="Imagen 5" class="carousel-image">
+                    </div>
+                    <div class="carousel-indicators">
+                        <div class="indicator active"></div>
+                        <div class="indicator"></div>
+                        <div class="indicator"></div>
+                        <div class="indicator"></div>
+                        <div class="indicator"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="button">Favoritos</button>
+                <button class="button">Agregar nuevo lugar</button>
+                <button class="button">Ajustes</button>
+                <button class="button">Promociones</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mostrar la pantalla de inicio cuando se hace clic en "Iniciar Sesión"
+        document.getElementById('sign-in-btn').addEventListener('click', function() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('home-screen').style.display = 'block';
+        });
+
+        // Mostrar el formulario de registro cuando se hace clic en "Crear cuenta"
+        document.getElementById('create-account-btn').addEventListener('click', function() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('register-screen').style.display = 'block';
+        });
+
+        // Volver a la pantalla de inicio de sesión desde el formulario de registro
+        document.getElementById('back-to-login-btn').addEventListener('click', function() {
+            document.getElementById('register-screen').style.display = 'none';
+            document.getElementById('login-screen').style.display = 'block';
+        });
+
+        // Carrusel de imágenes
+        const carouselImages = document.querySelector('.carousel-images');
+        const indicators = document.querySelectorAll('.indicator');
+        let currentIndex = 0;
+
+        function showImage(index) {
+            const totalImages = carouselImages.children.length;
+            if (index >= totalImages) index = 0;
+            if (index < 0) index = totalImages - 1;
+            carouselImages.style.transform = `translateX(-${index * 100}%)`;
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === index);
+            });
+            currentIndex = index;
+        }
+
+        indicators.forEach((indicator, i) => {
+            indicator.addEventListener('click', () => showImage(i));
+        });
+
+        // Muestra la primera imagen al cargar
+        showImage(0);
+    </script>
+</body>
+</html>
+
